@@ -32,7 +32,7 @@
     <!-- Custom styles for this template -->
     <link href="css/starter-template.css" rel="stylesheet" type="text/css"/>
   </head>
-  <body>
+  <body style=background-image:url("images/math.jpg")>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
   <a class="navbar-brand" href="#">Tablas de multiplicar</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
@@ -69,7 +69,7 @@
 <main role="main" class="container">
 
   <div class="starter-template">
-    <h1>Bootstrap starter template</h1>
+      <h1 style="background-color:white">Resultado :</h1>
   </div>
 
 </main><!-- /.container -->

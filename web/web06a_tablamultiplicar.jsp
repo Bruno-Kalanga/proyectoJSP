@@ -11,18 +11,18 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Web 06 JSP</title>
     </head>
-    <body>
+    <body style=background-image:url("images/math.jpg")>
         <h1>Tabla de multiplicar</h1>
         <hr/>
         <form>
-            <label>Numero de Tabla</label>
+            <label style="background-color: white">Numero de Tabla</label>
             <input type="text" name="cajanumero"/>
             <button type="submit">Enviar</button>
         </form>
         <hr/>
         <%
             String dato = request.getParameter("cajanumero");
-        %><table border="6">
+        %><table border="6" style="background-color: lightblue">
             <%
                 if (dato != null) {
                     int num = Integer.parseInt(dato);
