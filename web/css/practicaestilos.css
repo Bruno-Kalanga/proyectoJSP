@@ -1,0 +1,24 @@
+/*
+ProyectoWeb
+    Web Pages
+        practicaestilos.css
+        practicaestilos.html
+Con un estilo externo intentar redondear bordes de una imagen.
+Dibujar una tabla y cambiar el color de la cabecera.
+Las filas de la tabla que tengan otro tipo de letra.
+Que la imagen aparezca a la izquierda y la tabla a la derecha.
+*/
+/* 
+    Created on : 21-dic-2020, 19:57:24
+    Author     : Kuro
+*/
+thead {
+    background-color: black; color: gold;
+}
+body {
+    background-color: lightblue;
+    background-image: url("../images/Desert.jpg");
+}
+tbody {
+    font-family: cursive; border-image: round 30;
+}
