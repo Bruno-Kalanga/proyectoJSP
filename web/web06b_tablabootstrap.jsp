@@ -30,7 +30,7 @@
 
 
     <!-- Custom styles for this template -->
-    <link href="starter-template.css" rel="stylesheet">
+    <link href="css/starter-template.css" rel="stylesheet" type="text/css"/>
   </head>
   <body>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
@@ -74,8 +74,8 @@
   </div>
 
 </main><!-- /.container -->
-<script src="js/bootstrap.bundle.min.js" type="text/javascript"></script>
 <script src="js/jquery-3.5.1.min.js" type="text/javascript"></script>
+<script src="js/bootstrap.bundle.min.js" type="text/javascript"></script>
  </body>
 </html>
 
