@@ -1,10 +1,16 @@
-<%-- 
-    Document   : web06b_tablabootstrap
-    Created on : 11-ene-2021, 19:55:27
-    Author     : Kuro
---%>
-
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.Connection"%>
+<%@page import="oracle.jdbc.OracleDriver"%>
+<%@page import="java.sql.DriverManager"%>
+<%
+    DriverManager.registerDriver(new OracleDriver());
+    String cadena="jdbc:oracle:thin:@LOCALHOST:1521:XE";
+    Connection cn =
+        DriverManager.getConnection(cadena,"system","oracle");
+%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -13,7 +19,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v4.1.1">
-    <title>Web 06 b JSP</title>
+    <title>Web 09 b JSP</title>
 
 
     <!-- Bootstrap core CSS -->
@@ -32,9 +38,9 @@
     <!-- Custom styles for this template -->
     <link href="css/starter-template.css" rel="stylesheet" type="text/css"/>
   </head>
-  <body style=background-image:url("images/math.jpg")>
+  <body style=background-image:url("images/ofice.jpg")>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-  <a class="navbar-brand" href="#">Tablas de multiplicar</a>
+  <a class="navbar-brand" href="#">Buscador por Oficios</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -60,8 +66,8 @@
       </li>
     </ul>-->
     <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="text" placeholder="Numero de tabla" aria-label="Search">
-      <button class="btn btn-secondary my-2 my-sm-0" type="submit">Generar Tabla</button>
+      <input class="form-control mr-sm-2" type="text" placeholder="Oficio" aria-label="Search" name="cajaoficio">
+      <button class="btn btn-secondary my-2 my-sm-0" type="submit">Buscar</button>
     </form>
   </div>
 </nav>
@@ -69,7 +75,42 @@
 <main role="main" class="container">
 
   <div class="starter-template">
-      <h1 style="background-color:white">Resultado :</h1>
+      <h1 style="background-color:white">Resultados :</h1>
+      <div class="align-content-center">
+         <%
+            String oficiobuscado = request.getParameter("cajaoficio");
+            if (oficiobuscado != null){
+                String consulta = "select * from emp where lower(oficio) = lower(?)";
+                PreparedStatement pst =
+                        cn.prepareStatement(consulta);
+                pst.setString(1, oficiobuscado);
+                ResultSet rs = pst.executeQuery();
+                %>
+                <table style="background-color: lightslategrey">
+                    <tr>
+                        <td>Apellido</td><td>Salario</td><td>Oficio</td>
+                    </tr>
+                <%
+                while (rs.next()){
+                    String apellido = rs.getString("APELLIDO");
+                    String salario = rs.getString("SALARIO");
+                    String oficio = rs.getString("OFICIO");
+                    %>
+                    <tr>
+                        <td><%=apellido%></td>
+                        <td><%=salario%></td>
+                        <td><%=oficio%></td>
+                    </tr>
+                    <%
+                }
+                rs.close();
+                cn.close();
+                %>
+                </table>
+                <%
+            }
+        %> 
+      </div>
   </div>
 
 </main><!-- /.container -->
@@ -77,4 +118,5 @@
 <script src="js/bootstrap.bundle.min.js" type="text/javascript"></script>
  </body>
 </html>
+
 
