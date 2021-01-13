@@ -28,12 +28,13 @@
     </head>
     <body>
         <%
-            int cajanum = Integer.parseInt(request.getParameter("cajanum"));
+            String datonum = request.getParameter("cajanum");
             String cajanom = request.getParameter("cajanom");
             String cajaloc = request.getParameter("cajaloc");
             String insert = "insert into dept values (?,?,?)";
             int insertados = 0;
             if (cajanom != null){
+                int cajanum = Integer.parseInt(datonum);
                 PreparedStatement pst = cn.prepareCall(insert);
                 pst.setInt(1, cajanum);
                 pst.setString(2, cajanom);
@@ -51,11 +52,13 @@
                     <td>Localidad</td>
                 </thead>
                 <tr>
-                    <td><input type="text" name="cajanum" required/></td>
+                    <td><input type="number" name="cajanum" required/></td>
                     <td><input type="text" name="cajanom" required/></td>
                     <td><input type="text" name="cajaloc" required/></td>
                 </tr>
-            </table><br><button type="submit">Insertar</button>
+            </table><br>
+            <button type="submit">Insertar</button>
+            <button type="submit">Borrar</button>    
         </form>
         <hr/>
         <table border="5">
@@ -77,6 +80,7 @@
                    <%
                 }
                rs.close();
+               cn.close();
             %>
         </table>
         <%
