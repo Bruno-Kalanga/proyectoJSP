@@ -28,14 +28,14 @@
     </head>
     <body>
         <%
-            String cajanum = request.getParameter("cajanum");
+            int cajanum = Integer.parseInt(request.getParameter("cajanum"));
             String cajanom = request.getParameter("cajanom");
             String cajaloc = request.getParameter("cajaloc");
             String insert = "insert into dept values (?,?,?)";
             int insertados = 0;
-            if (cajanum != null && cajanom != null && cajaloc != null){
+            if (cajanom != null){
                 PreparedStatement pst = cn.prepareCall(insert);
-                pst.setString(1, cajanum);
+                pst.setInt(1, cajanum);
                 pst.setString(2, cajanom);
                 pst.setString(3, cajaloc);
                 insertados = pst.executeUpdate();
