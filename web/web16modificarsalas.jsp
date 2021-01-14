@@ -32,7 +32,7 @@ un mensaje con el número de salas modificadas.
             int modificados = 0;
             if (datocod != null) {
                 int cod = Integer.parseInt(datocod);
-                String sqlupdate = "update sala set nombr=? where sala_cod=?";
+                String sqlupdate = "update sala set nombre=? where sala_cod=?";
                 PreparedStatement pst = cn.prepareStatement(sqlupdate);
                 pst.setString(1, nuevo);
                 pst.setInt(2, cod);
@@ -48,19 +48,33 @@ un mensaje con el número de salas modificadas.
                 String sqlsalas = "select * from sala";
                 Statement st = cn.createStatement();
                 ResultSet rs = st.executeQuery(sqlsalas);
+                String seleccionado = request.getParameter("cajasalas");
                 while (rs.next()){
                     String sala = rs.getString("NOMBRE");
                     String cod = rs.getString("SALA_COD");
-                    %>
+                    if (seleccionado == null) {
+                        %>
                         <option value="<%=cod%>"><%=sala%></option> 
-                    <%
+                        <%
+                    }else { 
+                          if (seleccionado.equals(cod)){
+                             %>
+                             <option value="<%=cod%>" selected><%=sala%></option> 
+                             <%  
+                          }else{
+                            %>
+                            <option value="<%=cod%>"><%=sala%></option> 
+                            <%   
+                          }    
+                    }
                 }
                 rs.close();
+                cn.close();
             %>
                       
             </select>
             <label>Nuevo nombre</label>
-            <input name="cajanuevo"/>
+            <input name="cajanuevo" required/>
             <button type="submit">Modificar</button>
         </form>
         <hr/>
