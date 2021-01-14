@@ -32,20 +32,7 @@
         DriverManager.registerDriver(new OracleDriver());
         Connection cn  = DriverManager.getConnection(cadena, user, password);
         
-        if (cajanumero != null) {
-            int empno = Integer.parseInt(cajanumero);
-                pst = cn.prepareCall(sql);
-                pst.setInt(1, empno);
-                rs = pst.executeQuery();
-                while (rs.next()) {
-                    apellido = rs.getString("APELLIDO");
-                    oficio = rs.getString("OFICIO");
-                    salario = rs.getInt("SALARIO");
-            }     
-        }
-    }
-%>
-<%
+        
     
 %>
 <!DOCTYPE html>
@@ -87,22 +74,32 @@
         </form>
         <hr/>
         <%
-            if(cajanumero != null) {
-               %>
-               <table border="3">
-                   <tr>
+            if (cajanumero != null) {
+            int empno = Integer.parseInt(cajanumero);
+                pst = cn.prepareCall(sql);
+                pst.setInt(1, empno);
+                rs = pst.executeQuery();
+                while (rs.next()) {
+                    apellido = rs.getString("APELLIDO");
+                    oficio = rs.getString("OFICIO");
+                    salario = rs.getInt("SALARIO");
+                    %>
+                    <table border="3">
+                    <tr>
                        <td>Apellido</td>
                        <td>Oficio</td>
                        <td>Salario</td>
-                   </tr>
-                   <tr>
+                    </tr>
+                    <tr>
                        <td><%=apellido%></td>
                        <td><%=oficio%></td>
                        <td><%=salario%></td>
-                   </tr>
-               </table>
-               <%
+                    </tr>
+                    </table>
+                    <%
+                }          
             }
-        %>
+    }   
+    %>
     </body>
 </html>
