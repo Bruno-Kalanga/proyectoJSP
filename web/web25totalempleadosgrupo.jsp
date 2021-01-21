@@ -30,33 +30,60 @@ Connection cn = DriverManager.getConnection(cadena, "system", "oracle");
     </head>
     <body>
         <%
-        String sql = "select * from todosempleados order by apellido";
+        String sql;
+        if (request.getParameter("cajasalario") == null){
+            sql = "select * from todosempleados";
+        } else {
+            sql = "select * from todosempleados where salario >= " 
+                    + request.getParameter("cajasalario");
+        }   
         Statement st = cn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE
                         , ResultSet.CONCUR_READ_ONLY);
         ResultSet rs = st.executeQuery(sql);
         rs.last();
         int numeroregistros = rs.getRow();
-        int posicion;
+        int posicion = 1; 
+        if (request.getParameter("posicion") != null) {
         posicion = Integer.parseInt(request.getParameter("posicion"));
+        }
         rs.absolute(posicion);
         %>
         <ul id="menu">
                 <%
                     int numeropagina = 1;
                 for (int i = 1; i <= numeroregistros; i+=6){
+                    if (request.getParameter("cajasalario") == null){
                     %>
-                    <li>
-                    <a href="web25totalempleadosgrupo.jsp?posicion=<%=i%>">
+                        <li>
+                        <a href="web25totalempleadosgrupo.jsp?posicion=<%=i%>">
                         Pagina <%=numeropagina%>
-                    </a>
-                    </li>
+                        </a>
+                        </li>
                     <%
+                        posicion = 1;
+                    }else{
+                        String cajasalario = request.getParameter("cajasalario");
+                    %>
+                        <li>
+                        <a href="web25totalempleadosgrupo.jsp?posicion=<%=i%>&cajasalario=<%=cajasalario%>">
+                        Pagina <%=numeropagina%>
+                        </a>
+                        </li>
+                    <%  
+                    }
                     numeropagina += 1;
                 }
                 %>               
         </ul>
         <hr/>
         <h1>Lista de Empleados</h1>
+        <form method="post">
+            <label>Introduzca salario: </label>
+            <input type="number" name="cajasalario"/>
+            <button type="submit">
+                Mostrar
+            </button> 
+        </form>
         <hr/>
         <table border="5">
             <tr>
